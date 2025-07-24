@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Respositories;
+namespace App\Infrastructure\repositories;
 
 use App\Domain\Repositories\CamperRepositoryInterface;
 use App\Domain\Models\Camper;
