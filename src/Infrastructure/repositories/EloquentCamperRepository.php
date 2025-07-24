@@ -11,7 +11,7 @@ class EloquentCamperRepository implements CamperRepositoryInterface
         return Camper::all()->toArray();
     }
     public function getById(int $documento): ?Camper {
-        return Camper::find($documento);
+        return Camper::where('documento', $documento)->first();
     }
     public function create(array $data):Camper{
         return Camper::create($data);
