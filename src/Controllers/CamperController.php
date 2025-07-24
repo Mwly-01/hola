@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Domain\Repositories\CamperRepositoryInterface;
 use App\UseCases\GetAllCampers;
 use App\UseCases\GetCamperById;
+use App\UseCases\CreateCamper;
+use App\UseCases\UpdateCamper;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface  as Request;
 
@@ -32,10 +34,23 @@ class CamperController
         return $response;
     }
     public function store(Request $request, Response $response): Response{
-        return $response;
+        
+        $data = $request->getParsedBody();
+        $useCase = new CreateCamper($this->repo);
+        $camper = $useCase->execute($data);
+        $response->getBody()->write(json_encode($camper));
+        return $response->withStatus(201)->withHeader('Content-Type', 'application/json');
     }
-    public function update(Request $request, Response $response): Response{
-        return $response;
+    public function update(Request $request, Response $response, array $args): Response{
+        $documento = (int)$args['documento'];
+        $data = $request->getParsedBody();
+        $useCase =  new UpdateCamper($this->repo);
+        $success = $useCase->execute($documento, $data);
+        if (!$success) {
+            $response->getBody()->write(json_encode(['error' => 'camper no existe']));
+            return $response->withStatus(404);
+        }
+        return $response->withStatus(204);
     }
     public function destroy(Request $request, Response $response): Response{
         return $response;
