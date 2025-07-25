@@ -28,5 +28,6 @@ $app = AppFactory::create();
 
 // routes/
 (require_once 'routes/campers.php')($app);
+(require_once 'routes/users.php')($app);
 
 $app->run();

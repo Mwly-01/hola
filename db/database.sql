@@ -1,4 +1,4 @@
--- Active: 1753105799790@@127.0.0.1@3306@taller_slim
+-- Active: 1753105799790@@127.0.0.1@3306@php_pdo
 
 
 -- Database commands
@@ -57,3 +57,17 @@ VALUES
 ('Andres Gómez', 23, '1008234574', 'Pasaporte', 2, 3),
 ('María Fernanda Ruiz', 25, '1009234575', 'Cedula', 5, 5),
 ('Jhonatan Páez', 19, '1010234576', 'Cedula', 3, 2);
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE `users`
+(
+    `id`     int          NOT NULL AUTO_INCREMENT,
+    `nombre` varchar(100) NOT NULL DEFAULT '',
+    `email`  varchar(100) NOT NULL,
+    `password`  varchar(255) NOT NULL,
+    `rol`  enum('admin', 'user') NOT NULL DEFAULT 'user',
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `email` (`email`)
+);
